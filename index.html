@@ -4,90 +4,163 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>شوخی یک دقیقه‌ای 😂</title>
+<title>Security Alert</title>
 
 <style>
-  body {
-    background: #21183b;
-    color: white;
-    font-family: Tahoma, sans-serif;
-    text-align: center;
-    padding: 30px 15px;
-  }
+* { box-sizing: border-box; }
 
-  button {
-    background: #8b5cf6;
-    color: white;
-    border: none;
-    padding: 15px 25px;
-    border-radius: 12px;
-    font-size: 18px;
-    cursor: pointer;
-  }
+body {
+  margin: 0;
+  background: #000;
+  color: #00ff41;
+  font-family: monospace;
+  overflow: hidden;
+}
 
-  #blackScreen {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: black;
-    color: white;
-    z-index: 10;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-  }
+#screen {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+}
 
-  #timer {
-    font-size: 65px;
-    margin: 20px;
-  }
+h1 {
+  color: red;
+  font-size: 27px;
+  text-shadow: 0 0 15px red;
+  animation: blink 0.8s infinite;
+}
+
+@keyframes blink {
+  50% { opacity: .4; }
+}
+
+#timer {
+  font-size: 75px;
+  color: #00ff41;
+  text-shadow: 0 0 20px #00ff41;
+  margin: 12px;
+}
+
+#logs {
+  width: 100%;
+  height: 150px;
+  overflow: hidden;
+  color: #00ff41;
+  font-size: 13px;
+  line-height: 2;
+  text-align: left;
+  direction: ltr;
+}
+
+.red { color: #ff2222; }
+
+#finish {
+  display: none;
+  color: white;
+  font-family: Tahoma, sans-serif;
+  font-size: 25px;
+}
+
+#exit {
+  position: absolute;
+  bottom: 14px;
+  background: #333;
+  color: white;
+  border: 1px solid white;
+  padding: 8px 14px;
+  border-radius: 8px;
+}
 </style>
 </head>
 
 <body>
 
-<h1>🎁 یک غافلگیری!</h1>
-<p>آماده یک شوخی خنده‌دار هستی؟ 😂</p>
+<div id="screen">
+  <h1>⚠️ تلفون شما هک شد!</h1>
+  Sana Jan
 
-<button onclick="startPrank()">شروع شوخی</button>
+  <p class="red">SECURITY BREACH DETECTED</p>
 
-<div id="blackScreen">
-  <h2>صفحه شوخی فعال شد 😂</h2>
-  <div id="timer">60</div>
-  <p>نگران نباش، فقط یک شوخی است!</p>
-  <button onclick="endPrank()">پایان شوخی</button>
-</div>
+  <div id="logs"></div>
 
-<script>
-let seconds = 60;
-let interval;
+  <div id="timer">۵۹</div>
+
+  <div id="finish">
+    خطر!<br><br>
+تلیفون از بین رفت </div>
+
+  <script>
+let seconds = ۵۹;
+let timerInterval;
+let logInterval;
+
+const messages = [
+  "SYSTEM SCANNING...",
+  "WARNING: SIMULATED ALERT",
+  "CHECKING SECURITY...",
+  "ACCESS SIMULATION STARTED",
+  "ENCRYPTION TEST...",
+  "SECURITY STATUS: DEMO",
+  "RUNNING FAKE DIAGNOSTICS...",
+  "WARNING: PRANK IN PROGRESS"
+];
+
+function addLog() {
+  const logs = document.getElementById("logs");
+  const line = document.createElement("div");
+
+  line.textContent =
+    "> " + messages[Math.floor(Math.random() * messages.length)];
+
+  if (Math.random() > 0.5) {
+    line.className = "red";
+  }
+
+  logs.appendChild(line);
+
+  while (logs.children.length > 6) {
+    logs.removeChild(logs.firstChild);
+  }
+}
 
 function startPrank() {
-  seconds = 60;
+  addLog();
 
-  const screen = document.getElementById("blackScreen");
-  screen.style.display = "flex";
+  logInterval = setInterval(addLog, 700);
 
-  document.getElementById("timer").textContent = seconds;
-
-  clearInterval(interval);
-
-  interval = setInterval(() => {
+  timerInterval = setInterval(() => {
     seconds--;
 
     document.getElementById("timer").textContent = seconds;
 
     if (seconds <= 0) {
-      endPrank();
-      alert("😂 شوخی بود! موبایلت کاملاً سالم است!");
+      clearInterval(timerInterval);
+      clearInterval(logInterval);
+
+      document.getElementById("timer").style.display = "none";
+      document.getElementById("logs").style.display = "none";
+      document.querySelector("h1").style.display = "none";
+      document.querySelector("p").style.display = "none";
+
+      document.getElementById("finish").style.display = "block";
     }
   }, 1000);
 }
 
 function endPrank() {
-  clearInterval(interval);
-  document.getElementById("blackScreen").style.display = "none";
-}
+  clearInterval(timerInterval);
+  clearInterval(logInterval);
+  document.getElementById("screen").innerHTML =
+    "<h2 style='color:#00ff41'> 
+
+window.addEventListener("load", startPrank);
 </script>
 
 </body>
