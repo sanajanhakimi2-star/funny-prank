@@ -1,0 +1,94 @@
+
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>شوخی یک دقیقه‌ای 😂</title>
+
+<style>
+  body {
+    background: #21183b;
+    color: white;
+    font-family: Tahoma, sans-serif;
+    text-align: center;
+    padding: 30px 15px;
+  }
+
+  button {
+    background: #8b5cf6;
+    color: white;
+    border: none;
+    padding: 15px 25px;
+    border-radius: 12px;
+    font-size: 18px;
+    cursor: pointer;
+  }
+
+  #blackScreen {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: black;
+    color: white;
+    z-index: 10;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  #timer {
+    font-size: 65px;
+    margin: 20px;
+  }
+</style>
+</head>
+
+<body>
+
+<h1>🎁 یک غافلگیری!</h1>
+<p>آماده یک شوخی خنده‌دار هستی؟ 😂</p>
+
+<button onclick="startPrank()">شروع شوخی</button>
+
+<div id="blackScreen">
+  <h2>صفحه شوخی فعال شد 😂</h2>
+  <div id="timer">60</div>
+  <p>نگران نباش، فقط یک شوخی است!</p>
+  <button onclick="endPrank()">پایان شوخی</button>
+</div>
+
+<script>
+let seconds = 60;
+let interval;
+
+function startPrank() {
+  seconds = 60;
+
+  const screen = document.getElementById("blackScreen");
+  screen.style.display = "flex";
+
+  document.getElementById("timer").textContent = seconds;
+
+  clearInterval(interval);
+
+  interval = setInterval(() => {
+    seconds--;
+
+    document.getElementById("timer").textContent = seconds;
+
+    if (seconds <= 0) {
+      endPrank();
+      alert("😂 شوخی بود! موبایلت کاملاً سالم است!");
+    }
+  }, 1000);
+}
+
+function endPrank() {
+  clearInterval(interval);
+  document.getElementById("blackScreen").style.display = "none";
+}
+</script>
+
+</body>
+</html>
